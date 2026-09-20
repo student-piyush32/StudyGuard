@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - StudyGuard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>📚 StudyGuard</h1>
+
+    <h2>Welcome, {{ name }}! 👋</h2>
+
+    <p>Manage your study groups and track your progress.</p>
+
+    <div>
+
+        <a href="{{ url_for('create_group') }}">
+            <button>Create Study Group</button>
+        </a>
+
+        <a href="{{ url_for('join_group') }}">
+            <button>Join Study Group</button>
+        </a>
+
+    </div>
+
+    <h2>👥 My Study Groups</h2>
+
+    {% if groups %}
+
+        <div class="dashboard-cards">
+
+            {% for group in groups %}
+
+            <div class="card">
+
+                <h3>👥 {{ group["group_name"] }}</h3>
+
+                <p>
+                    Group Code:
+                    <strong>{{ group["group_code"] }}</strong>
+                </p>
+
+                <a href="{{ url_for('group', group_id=group['id']) }}">
+                    <button>Open Group</button>
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>You haven't joined any study group yet.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('logout') }}">
+        <button>Logout</button>
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Study Task</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>📚 Add Study Task</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="title"
+            placeholder="Task name e.g. Linked List Practice"
+            required
+        >
+
+        <input
+            type="text"
+            name="subject"
+            placeholder="Subject e.g. DSA"
+            required
+        >
+
+        <label>Study Date</label>
+
+        <input
+            type="date"
+            name="task_date"
+            required
+        >
+
+        <label>Start Time</label>
+
+        <input
+            type="time"
+            name="start_time"
+            required
+        >
+
+        <label>End Time</label>
+
+        <input
+            type="time"
+            name="end_time"
+            required
+        >
+
+        <button type="submit">
+            Add Task
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('routine') }}">
+        Back to Routine
+    </a>
+
+</div>
+
+</body>
+
+</html>

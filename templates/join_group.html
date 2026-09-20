@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Join Group - StudyGuard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>👥 Join Study Group</h1>
+
+    <p>Enter the group code shared by your friend.</p>
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <p class="message">{{ message }}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="group_code"
+            placeholder="Enter 6-digit group code"
+            maxlength="6"
+            required
+        >
+
+        <button type="submit">
+            Join Group
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>

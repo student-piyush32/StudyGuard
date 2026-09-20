@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Study Routine</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>📅 My Study Routine</h1>
+
+    <p>Here are your study tasks.</p>
+
+    <a href="{{ url_for('add_task') }}">
+        <button>➕ Add Study Task</button>
+    </a>
+
+    <br><br>
+
+    {% if tasks %}
+
+        {% for task in tasks %}
+
+        <div class="card">
+
+            <h2>📚 {{ task["title"] }}</h2>
+
+            <p>
+                <strong>Subject:</strong>
+                {{ task["subject"] }}
+            </p>
+
+            <p>
+                📅 {{ task["task_date"] }}
+            </p>
+
+            <p>
+                ⏰ {{ task["start_time"] }}
+                -
+                {{ task["end_time"] }}
+            </p>
+
+            {% if task["status"] == "Completed" %}
+
+                <p>✅ <strong>Completed</strong></p>
+
+            {% else %}
+
+                <p>⏳ <strong>Pending</strong></p>
+
+                <a href="{{ url_for('complete_task',
+                                     task_id=task['id']) }}">
+                    <button>Complete ✅</button>
+                </a>
+
+            {% endif %}
+
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>📭 No study tasks added yet.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        <button>🏠 Dashboard</button>
+    </a>
+
+</div>
+
+</body>
+
+</html>

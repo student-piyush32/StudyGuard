@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ group["group_name"] }} - StudyGuard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>👥 {{ group["group_name"] }}</h1>
+
+    <p>
+        Group Code:
+        <strong>{{ group["group_code"] }}</strong>
+    </p>
+
+    <h2>Members</h2>
+
+    <div class="dashboard-cards">
+
+        {% for member in members %}
+
+        <div class="card">
+
+            <h3>👤 {{ member["name"] }}</h3>
+
+            <p>Study Member</p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <br>
+
+    <h2>📚 Group Study</h2>
+
+    <p>
+        Your group study tracking system will appear here.
+    </p>
+
+    <p>Coming next: Study Routine + Tasks + Progress 📊</p>
+
+    <a href="{{ url_for('dashboard') }}">
+        <button>Dashboard</button>
+    </a>
+
+</div>
+
+</body>
+
+</html>
