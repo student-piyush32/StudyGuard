@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Task - StudyGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Complete Task 📚</h1>
+
+        <p>Upload a photo as proof that you completed your study task.</p>
+
+       <form method="POST" enctype="multipart/form-data" action="{{ url_for('complete_task', task_id=task_id) }}"></form>
+
+            <label for="proof_photo">Study Proof Photo</label>
+            <br><br>
+
+            <input
+                type="file"
+                id="proof_photo"
+                name="proof_photo"
+                accept="image/png,image/jpeg,image/webp"
+                required
+            >
+
+            <br><br>
+
+            <button type="button" onclick="document.querySelector('form').submit();">
+    Upload Proof & Complete ✅
+</button>
+
+        </form>
+
+        <br>
+
+        <a href="{{ url_for('routine') }}">← Back to Routine</a>
+    </div>
+
+</body>
+</html>

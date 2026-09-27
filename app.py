@@ -439,24 +439,48 @@ def add_task():
 
 # ---------------- COMPLETE TASK ----------------
 
-@app.route("/complete-task/<int:task_id>")
+@app.route("/complete-task/<int:task_id>", methods=["GET", "POST"])
 def complete_task(task_id):
-
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    supabase.table("tasks").update({
-        "status": "Completed"
-    }).eq(
-        "id", task_id
-    ).eq(
-        "user_id", session["user_id"]
-    ).execute()
+    if request.method == "POST":
+        proof = request.files.get("proof_photo")
+        print("UPLOADED FILE:", proof)
 
-    return redirect(
-        url_for("routine")
-    )
+        if not proof or proof.filename == "":
+            flash("Please upload a study proof photo.")
+            return redirect(url_for("complete_task", task_id=task_id))
 
+        # Unique file name
+        filename = f"{session['user_id']}_{task_id}_{secrets.token_hex(8)}_{proof.filename}"
+
+        # Upload photo to Supabase Storage
+        file_bytes = proof.read()
+
+        supabase.storage.from_("study-proofs").upload(
+            filename,
+            file_bytes,
+            {"content-type": proof.content_type}
+        )
+
+        # Get public URL
+        proof_url = supabase.storage.from_("study-proofs").get_public_url(filename)
+
+        # Mark task completed and save proof URL
+        supabase.table("tasks").update({
+            "status": "Completed",
+            "proof_url": proof_url
+        }).eq(
+            "id", task_id
+        ).eq(
+            "user_id", session["user_id"]
+        ).execute()
+
+        flash("Task completed with photo proof! 🎉")
+        return redirect(url_for("routine"))
+
+    return render_template("complete_task.html", task_id=task_id)
 
 # ---------------- LOGOUT ----------------
 

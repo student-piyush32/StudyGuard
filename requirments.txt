@@ -1,5 +1,0 @@
-Flask
-Werkzeug
-gunicorn
-supabase
-python-dotenv
